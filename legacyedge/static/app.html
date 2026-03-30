@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Legacy Edge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#09090b;--s1:#111114;--s2:#19191f;--bd:#2a2a3a;--tx:#e8e6e1;--t2:#8a8a9a;--t3:#5a5a6a;--ac:#7c6cf0;--a2:#9d8df7;--g:#22c55e;--r:#ef4444;--am:#f59e0b}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.aw{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.ab{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:32px;width:360px}
+.ab h2{text-align:center;margin-bottom:4px}.ab .sub{text-align:center;color:var(--t2);font-size:13px;margin-bottom:20px}
+.ab .err{color:var(--r);font-size:13px;text-align:center;min-height:16px;margin-bottom:8px}
+.ab .sw{text-align:center;font-size:13px;color:var(--t2);margin-top:14px}.ab .sw a{color:var(--a2);cursor:pointer}
+.app{display:none;min-height:100vh}
+.side{width:180px;background:var(--s1);border-right:1px solid var(--bd);padding:16px 10px;position:fixed;height:100vh;display:flex;flex-direction:column}
+.logo{font-size:16px;font-weight:700;color:var(--a2);padding:0 8px;margin-bottom:4px}
+.logo small{color:var(--t2);font-weight:400;font-size:10px;display:block;margin-top:1px;text-transform:uppercase;letter-spacing:.4px}
+.up{font-size:11px;color:var(--t2);padding:2px 8px;margin-bottom:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nb{display:block;width:100%;padding:8px 10px;border:none;background:none;color:var(--t2);font-size:13px;text-align:left;cursor:pointer;border-radius:7px;margin-bottom:2px}
+.nb:hover{background:var(--s2);color:var(--tx)}.nb.on{background:var(--ac);color:#fff}
+.mn{margin-left:180px;padding:24px 28px;max-width:1000px}
+h2{font-size:18px;font-weight:600;margin-bottom:16px}h3{font-size:14px;font-weight:600;margin-bottom:8px}
+hr.sp{border:none;border-top:1px solid var(--bd);margin:16px 0}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.sc{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:14px}
+.sc .lb{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.sc .vl{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.sc .sb{font-size:10px;color:var(--t3);margin-top:2px}
+.pos{color:var(--g)}.neg{color:var(--r)}
+.cd{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:12px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fi{display:flex;flex-direction:column;gap:3px}.fi.fw{grid-column:1/-1}
+label{font-size:11px;color:var(--t2);font-weight:500}
+input,select,textarea{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;color:var(--tx);font-size:13px;outline:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--ac)}
+textarea{resize:vertical;min-height:50px}
+.btn{padding:8px 16px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
+.bp{background:var(--ac);color:#fff}.bp:hover{background:var(--a2)}
+.bo{background:none;border:1px solid var(--bd);color:var(--tx)}.bo:hover{border-color:var(--ac)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px;border-bottom:2px solid var(--bd);color:var(--t2);font-size:10px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+td{padding:8px;border-bottom:1px solid var(--bd)}tr:hover td{background:var(--s2)}
+.b{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600}
+.bw{background:rgba(34,197,94,.14);color:var(--g)}.bl{background:rgba(239,68,68,.14);color:var(--r)}
+.bbe{background:rgba(245,158,11,.14);color:var(--am)}
+.blo{background:rgba(124,108,240,.1);color:var(--a2)}.bsh{background:rgba(239,68,68,.1);color:#f87171}
+.fb{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.fb select,.fb input{font-size:11px;padding:5px 8px}
+.ab_{display:inline-flex;gap:2px;vertical-align:middle}
+.ad{width:10px;height:4px;border-radius:2px;background:var(--bd)}.ad.on{background:var(--ac)}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100}
+.mo.open{display:flex}
+.ml{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:22px;max-width:540px;width:92%;max-height:85vh;overflow-y:auto}
+.mx{float:right;background:none;border:none;color:var(--t2);font-size:18px;cursor:pointer}
+.pl{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;background:var(--s2);color:var(--t2);margin:1px}
+.act{display:flex;gap:6px;margin-top:12px;justify-content:flex-end}
+.ci{display:flex;align-items:center;gap:6px;padding:4px 0}.ci input[type=checkbox]{accent-color:var(--ac)}
+.ri{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd)}.ri:last-child{border:none}
+.eq{height:140px;display:flex;align-items:flex-end;gap:1px}.eqb{flex:1;min-width:2px;border-radius:2px 2px 0 0}
+.em{text-align:center;padding:30px;color:var(--t2);font-size:13px}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:10px 18px;font-size:12px;z-index:200;opacity:0;transform:translateY(8px);transition:.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.side{display:none}.mn{margin-left:0;padding:14px}.sg{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="aw" id="auth">
+  <div class="ab">
+    <h2 id="at">Welcome back</h2><div class="sub" id="as">Log in to your trade journal</div>
+    <div class="err" id="ae"></div>
+    <form id="af" onsubmit="doAuth(event)">
+      <div class="fi" id="nf" style="display:none"><label>Name</label><input name="name" placeholder="Your name"></div>
+      <div class="fi" style="margin-bottom:10px"><label>Email</label><input name="email" type="email" required placeholder="you@example.com"></div>
+      <div class="fi" style="margin-bottom:10px"><label>Password</label><input name="password" type="password" required minlength="6"></div>
+      <button type="submit" class="btn bp" style="width:100%" id="abtn">Log in</button>
+    </form>
+    <div class="sw"><span id="st">No account?</span> <a onclick="flip()" id="sl">Sign up</a></div>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <nav class="side">
+    <div class="logo">Legacy Edge<small>Trade Journal</small></div>
+    <div class="up" id="un"></div>
+    <button class="nb on" data-p="dash">Dashboard</button>
+    <button class="nb" data-p="log">Log Trade</button>
+    <button class="nb" data-p="hist">History</button>
+    <button class="nb" data-p="rules">Rules</button>
+    <div style="flex:1"></div>
+    <button class="btn bo" onclick="xcsv()" style="width:100%;font-size:11px;margin-bottom:6px">Export CSV</button>
+    <button class="btn bo" onclick="out()" style="width:100%;font-size:11px;color:var(--r);border-color:var(--r)">Log out</button>
+  </nav>
+  <div class="mn">
+    <div id="p-dash"><h2>Dashboard</h2><div class="sg" id="st2"></div><div class="cd"><h3>Equity curve</h3><div class="eq" id="eq"></div></div><div class="cd"><h3>Recent trades</h3><table id="rt"><thead><tr><th>Date</th><th>Ticker</th><th>Dir</th><th>P&L</th><th>Result</th><th>Disc</th></tr></thead><tbody></tbody></table></div></div>
+    <div id="p-log" style="display:none"><h2>Log trade</h2>
+      <form class="cd" id="tf" onsubmit="sub(event)">
+        <div class="fg">
+          <div class="fi"><label>Ticker</label><input name="ticker" required placeholder="NQ, ES, BTC..."></div>
+          <div class="fi"><label>Direction</label><select name="direction"><option value="long">Long</option><option value="short">Short</option></select></div>
+          <div class="fi"><label>Entry price</label><input name="entry_price" type="number" step="any" required></div>
+          <div class="fi"><label>Exit price</label><input name="exit_price" type="number" step="any"></div>
+          <div class="fi"><label>Size</label><input name="size" type="number" step="any" required value="1"></div>
+          <div class="fi"><label>Entry time</label><input name="entry_time" type="datetime-local" required></div>
+          <div class="fi"><label>Exit time</label><input name="exit_time" type="datetime-local"></div>
+          <div class="fi"><label>Setup</label><input name="setup" placeholder="breakout, pullback..."></div>
+        </div>
+        <hr class="sp"><h3>Discipline</h3>
+        <div class="fi" style="margin-bottom:8px"><label>Intent — what was the thesis?</label><textarea name="intent" placeholder="I saw a breakout above resistance..."></textarea></div>
+        <div id="cl"></div>
+        <div class="fg" style="margin-top:8px">
+          <div class="fi"><label>Plan adherence</label><select name="adherence"><option value="5">5 — Nailed it</option><option value="4">4 — Minor deviation</option><option value="3" selected>3 — Partial</option><option value="2">2 — Big deviation</option><option value="1">1 — Didn't follow</option></select></div>
+          <div class="fi"><label>Emotion</label><select name="emotion"><option value="calm">Calm</option><option value="confident">Confident</option><option value="anxious">Anxious</option><option value="fomo">FOMO</option><option value="revenge">Revenge</option><option value="frustrated">Frustrated</option></select></div>
+        </div>
+        <hr class="sp">
+        <div class="fi fw"><label>Reflection</label><textarea name="reflection" placeholder="What did I learn?"></textarea></div>
+        <div class="act" style="margin-top:12px"><button type="submit" class="btn bp">Log trade</button></div>
+      </form>
+    </div>
+    <div id="p-hist" style="display:none"><h2>Trade history</h2>
+      <div class="fb">
+        <select id="fr" onchange="lh()"><option value="">All</option><option value="win">Win</option><option value="loss">Loss</option></select>
+        <select id="fd" onchange="lh()"><option value="">Dir</option><option value="long">Long</option><option value="short">Short</option></select>
+        <input id="ft" placeholder="Ticker" oninput="lh()" style="width:70px">
+      </div>
+      <div class="cd" style="padding:0;overflow-x:auto">
+        <table id="ht"><thead><tr><th>Date</th><th>Ticker</th><th>Dir</th><th>Entry</th><th>Exit</th><th>P&L</th><th>Result</th><th>Disc</th><th>Setup</th><th></th></tr></thead><tbody></tbody></table>
+        <div class="em" id="nt" style="display:none">No trades yet</div>
+      </div>
+    </div>
+    <div id="p-rules" style="display:none"><h2>My rules</h2>
+      <p style="color:var(--t2);margin-bottom:12px;font-size:12px">These become your pre-trade checklist.</p>
+      <div class="cd"><div id="rl"></div><div style="display:flex;gap:6px;margin-top:8px"><input id="nr" placeholder="Add a rule..." style="flex:1" onkeydown="if(event.key==='Enter')ar()"><button class="btn bp" onclick="ar()">Add</button></div></div>
+    </div>
+  </div>
+</div>
+<div class="mo" id="dm" onclick="if(event.target===this)cm()"><div class="ml"><button class="mx" onclick="cm()">&times;</button><div id="mc"></div></div></div>
+<div class="toast" id="to"></div>
+<script>
+let T=localStorage.getItem('t'),U=JSON.parse(localStorage.getItem('u')||'null'),R=[],isL=true;
+const A=(p,o={})=>{o.headers={...o.headers,'Content-Type':'application/json',Authorization:'Bearer '+T};return fetch('/api'+p,o).then(r=>{if(r.status===401){out();throw'auth'}return r})};
+const fmt=i=>{if(!i)return'—';const d=new Date(i);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})};
+const rb=r=>!r?'<span class="b" style="background:var(--s2);color:var(--t3)">open</span>':`<span class="b ${r==='win'?'bw':r==='loss'?'bl':'bbe'}">${r}</span>`;
+const ab=v=>{if(!v)return'—';return'<span class="ab_">'+[1,2,3,4,5].map(i=>`<span class="ad${i<=v?' on':''}"></span>`).join('')+'</span>'};
+const pc=v=>v!=null?(v>=0?'+':'')+v.toFixed(2):'—';
+function toast(m,ok=true){const t=document.getElementById('to');t.textContent=m;t.style.borderColor=ok?'var(--g)':'var(--r)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+// Auth
+function flip(){isL=!isL;document.getElementById('at').textContent=isL?'Welcome back':'Create account';document.getElementById('abtn').textContent=isL?'Log in':'Sign up';document.getElementById('st').textContent=isL?'No account?':'Have an account?';document.getElementById('sl').textContent=isL?'Sign up':'Log in';document.getElementById('nf').style.display=isL?'none':'flex';document.getElementById('ae').textContent=''}
+async function doAuth(e){e.preventDefault();const f=new FormData(e.target);const b={email:f.get('email'),password:f.get('password')};if(!isL)b.name=f.get('name')||undefined;try{const r=await fetch(isL?'/api/login':'/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});const d=await r.json();if(!r.ok){document.getElementById('ae').textContent=d.error||'Error';return}T=d.token;U=d.user;localStorage.setItem('t',T);localStorage.setItem('u',JSON.stringify(U));go()}catch(e){document.getElementById('ae').textContent='Connection error'}}
+function out(){T=U=null;localStorage.removeItem('t');localStorage.removeItem('u');document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex'}
+function go(){document.getElementById('auth').style.display='none';document.getElementById('app').style.display='flex';document.getElementById('un').textContent=U.name||U.email;ld()}
+if(T&&U)fetch('/api/me',{headers:{Authorization:'Bearer '+T}}).then(r=>r.ok?go():out()).catch(out);
+
+// Nav
+document.querySelectorAll('.nb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.querySelectorAll('[id^="p-"]').forEach(p=>p.style.display='none');const pg=b.dataset.p;document.getElementById('p-'+pg).style.display='block';if(pg==='dash')ld();if(pg==='hist')lh();if(pg==='rules')lr();if(pg==='log')bc()});
+
+// Dashboard
+async function ld(){const[s,t]=await Promise.all([A('/stats').then(r=>r.json()),A('/trades').then(r=>r.json())]);
+  const sk=s.streak,st=sk>0?sk+'W':sk<0?Math.abs(sk)+'L':'—';
+  document.getElementById('st2').innerHTML=`<div class="sc"><div class="lb">P&L</div><div class="vl ${s.pnl>=0?'pos':'neg'}">${pc(s.pnl)}</div><div class="sb">${s.total} trades</div></div><div class="sc"><div class="lb">Win rate</div><div class="vl">${(s.win_rate*100).toFixed(1)}%</div><div class="sb">${s.wins}W / ${s.losses}L</div></div><div class="sc"><div class="lb">Discipline</div><div class="vl">${s.avg_adherence.toFixed(1)}<span style="font-size:12px;color:var(--t2)"> /5</span></div></div><div class="sc"><div class="lb">Streak</div><div class="vl ${sk>0?'pos':sk<0?'neg':''}">${st}</div><div class="sb">DD: ${s.max_dd.toFixed(2)}</div></div>`;
+  const eq=document.getElementById('eq');
+  if(!t.length){eq.innerHTML='<div class="em" style="width:100%">Log trades to see your curve</div>';document.querySelector('#rt tbody').innerHTML='';return}
+  let c=0;const pts=t.slice().reverse().filter(x=>x.pnl!=null).map(x=>{c+=x.pnl;return c});
+  const mx=Math.max(...pts.map(Math.abs),1);
+  eq.innerHTML=pts.map(p=>`<div class="eqb" style="height:${Math.max(Math.abs(p/mx)*120,2)}px;background:${p>=0?'var(--g)':'var(--r)'};opacity:.6"></div>`).join('');
+  document.querySelector('#rt tbody').innerHTML=t.slice(0,6).map(x=>`<tr style="cursor:pointer" onclick="dt('${x.id}')"><td>${fmt(x.entry_time)}</td><td><b>${x.ticker}</b></td><td><span class="b ${x.direction==='long'?'blo':'bsh'}">${x.direction}</span></td><td class="${(x.pnl||0)>=0?'pos':'neg'}" style="font-weight:600">${pc(x.pnl)}</td><td>${rb(x.result)}</td><td>${ab(x.adherence)}</td></tr>`).join('')}
+
+// Log trade
+async function bc(){await lr();const e=document.getElementById('cl');if(!R.length){e.innerHTML='<p style="font-size:11px;color:var(--t3)">Add rules in "Rules" to see your checklist.</p>';return}e.innerHTML='<label style="margin-bottom:4px;display:block">Pre-trade checklist</label>'+R.map(r=>`<div class="ci"><input type="checkbox" name="chk" value="${r.rule}"><span style="font-size:12px">${r.rule}</span></div>`).join('')}
+async function sub(e){e.preventDefault();const f=new FormData(e.target);const uc=R.filter(r=>{const c=document.querySelector(`input[value="${r.rule}"]`);return c&&!c.checked}).map(r=>r.rule);
+  const b={ticker:f.get('ticker').toUpperCase(),direction:f.get('direction'),entry_price:+f.get('entry_price'),exit_price:f.get('exit_price')?+f.get('exit_price'):null,size:+f.get('size'),entry_time:f.get('entry_time')?new Date(f.get('entry_time')).toISOString():new Date().toISOString(),exit_time:f.get('exit_time')?new Date(f.get('exit_time')).toISOString():null,intent:f.get('intent')||null,adherence:+f.get('adherence'),violations:uc.length?uc:null,reflection:f.get('reflection')||null,emotion:f.get('emotion'),setup:f.get('setup')||null};
+  const r=await A('/trades',{method:'POST',body:JSON.stringify(b)});
+  if(r.ok){const d=await r.json();toast(d.pnl!=null?`${pc(d.pnl)} (${d.result})`:'Logged!',d.pnl==null||d.pnl>=0);e.target.reset();e.target.querySelector('[name=adherence]').value='3';document.querySelectorAll('[name=chk]').forEach(c=>c.checked=false)}}
+
+// History
+async function lh(){const p=new URLSearchParams();const r=document.getElementById('fr').value,d=document.getElementById('fd').value,t=document.getElementById('ft').value;if(r)p.set('result',r);if(d)p.set('direction',d);if(t)p.set('ticker',t);
+  const trades=await A('/trades?'+p).then(r=>r.json());const tb=document.querySelector('#ht tbody'),no=document.getElementById('nt');
+  if(!trades.length){tb.innerHTML='';no.style.display='block';return}no.style.display='none';
+  tb.innerHTML=trades.map(x=>`<tr style="cursor:pointer" onclick="dt('${x.id}')"><td>${fmt(x.entry_time)}</td><td><b>${x.ticker}</b></td><td><span class="b ${x.direction==='long'?'blo':'bsh'}">${x.direction}</span></td><td>${x.entry_price}</td><td>${x.exit_price??'—'}</td><td class="${(x.pnl||0)>=0?'pos':'neg'}" style="font-weight:600">${pc(x.pnl)}</td><td>${rb(x.result)}</td><td>${ab(x.adherence)}</td><td style="color:var(--t2);font-size:11px">${x.setup||''}</td><td><button style="background:none;border:none;color:var(--r);cursor:pointer;font-size:14px" onclick="event.stopPropagation();del('${x.id}')">x</button></td></tr>`).join('')}
+
+// Detail
+async function dt(id){const t=await A('/trades/'+id).then(r=>r.json());const v=t.violations?JSON.parse(t.violations):[];
+  document.getElementById('mc').innerHTML=`<h3>${t.ticker} ${t.direction.toUpperCase()}</h3><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0"><div><span style="color:var(--t2);font-size:10px">Entry</span><br><b>${t.entry_price}</b></div><div><span style="color:var(--t2);font-size:10px">Exit</span><br><b>${t.exit_price??'Open'}</b></div><div><span style="color:var(--t2);font-size:10px">P&L</span><br><b class="${(t.pnl||0)>=0?'pos':'neg'}">${pc(t.pnl)}</b></div><div><span style="color:var(--t2);font-size:10px">Result</span><br>${rb(t.result)}</div><div><span style="color:var(--t2);font-size:10px">Size</span><br><b>${t.size}</b></div><div><span style="color:var(--t2);font-size:10px">Setup</span><br><b>${t.setup||'—'}</b></div></div><hr class="sp"><div style="margin-bottom:4px">${ab(t.adherence)} <span style="font-size:11px;color:var(--t2)">${t.adherence||'—'}/5</span> ${t.followed_plan?'<span style="color:var(--g);font-size:10px">followed</span>':'<span style="color:var(--r);font-size:10px">deviated</span>'}</div>${v.length?'<div style="margin-bottom:4px">'+v.map(x=>`<span class="pl" style="background:rgba(239,68,68,.1);color:var(--r)">${x}</span>`).join(' ')+'</div>':''}<div><span class="pl">${t.emotion||'—'}</span></div>${t.intent?`<hr class="sp"><p style="font-size:12px;color:var(--t2)">${t.intent}</p>`:''} ${t.reflection?`<hr class="sp"><p style="font-size:12px;color:var(--t2)">${t.reflection}</p>`:''}`;
+  document.getElementById('dm').classList.add('open')}
+function cm(){document.getElementById('dm').classList.remove('open')}
+async function del(id){if(!confirm('Delete?'))return;await A('/trades/'+id,{method:'DELETE'});lh();toast('Deleted',false)}
+
+// Rules
+async function lr(){R=await A('/rules').then(r=>r.json());const e=document.getElementById('rl');if(!e)return;
+  e.innerHTML=R.length?R.map(r=>`<div class="ri"><span style="font-size:12px">${r.rule}</span><button style="background:none;border:none;color:var(--r);cursor:pointer" onclick="dr('${r.id}')">x</button></div>`).join(''):'<p style="color:var(--t3);font-size:12px">No rules yet</p>'}
+async function ar(){const i=document.getElementById('nr'),v=i.value.trim();if(!v)return;await A('/rules',{method:'POST',body:JSON.stringify({rule:v})});i.value='';lr();toast('Added')}
+async function dr(id){await A('/rules/'+id,{method:'DELETE'});lr()}
+function xcsv(){fetch('/api/export/csv',{headers:{Authorization:'Bearer '+T}}).then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='trades.csv';a.click()})}
+</script>
+</body>
+</html>

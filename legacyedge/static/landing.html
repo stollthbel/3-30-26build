@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Legacy Edge — Trade Smarter, Not Harder</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#09090b;--s1:#111114;--s2:#19191f;--bdr:#2a2a3a;--tx:#e8e6e1;--tx2:#8a8a9a;--ac:#7c6cf0;--ac2:#9d8df7;--g:#22c55e;--r:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden}
+a{color:var(--ac2);text-decoration:none}
+
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1100px;margin:0 auto}
+.nav-logo{font-size:18px;font-weight:700;color:var(--ac2);letter-spacing:-0.5px}
+.nav-links{display:flex;gap:12px}
+.nav-links a{padding:8px 18px;border-radius:8px;font-size:14px;font-weight:500;transition:.15s}
+.nav-links .login{color:var(--tx2)}.nav-links .login:hover{color:var(--tx)}
+.nav-links .cta{background:var(--ac);color:#fff}.nav-links .cta:hover{background:var(--ac2)}
+
+/* Hero */
+.hero{text-align:center;padding:80px 32px 60px;max-width:800px;margin:0 auto}
+.hero h1{font-size:48px;font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero h1 span{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--tx2);line-height:1.6;max-width:600px;margin:0 auto 32px}
+.hero-cta{display:inline-block;padding:14px 36px;background:var(--ac);color:#fff;border-radius:10px;font-size:16px;font-weight:600;transition:.15s}
+.hero-cta:hover{background:var(--ac2);transform:translateY(-1px)}
+.hero-sub{font-size:13px;color:var(--tx2);margin-top:12px}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto;padding:40px 32px 80px}
+.feat{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;padding:28px 24px}
+.feat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+.feat h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.feat p{font-size:14px;color:var(--tx2);line-height:1.5}
+.fi-purple{background:rgba(124,108,240,.12);color:var(--ac2)}
+.fi-green{background:rgba(34,197,94,.12);color:var(--g)}
+.fi-amber{background:rgba(245,158,11,.12);color:#f59e0b}
+
+/* How it works */
+.how{max-width:800px;margin:0 auto;padding:40px 32px 80px;text-align:center}
+.how h2{font-size:32px;font-weight:700;margin-bottom:40px;letter-spacing:-0.5px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left}
+.step-num{display:inline-block;width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;text-align:center;line-height:28px;font-size:13px;font-weight:700;margin-bottom:10px}
+.step h4{font-size:15px;font-weight:600;margin-bottom:6px}
+.step p{font-size:13px;color:var(--tx2);line-height:1.5}
+
+/* CTA */
+.bottom-cta{text-align:center;padding:60px 32px 80px;background:var(--s1);border-top:1px solid var(--bdr)}
+.bottom-cta h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.bottom-cta p{color:var(--tx2);margin-bottom:24px;font-size:16px}
+
+/* Footer */
+.footer{text-align:center;padding:24px;color:var(--tx2);font-size:13px;border-top:1px solid var(--bdr)}
+
+@media(max-width:768px){
+  .hero h1{font-size:32px}
+  .features,.steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Legacy Edge</div>
+  <div class="nav-links">
+    <a href="/app" class="login">Log in</a>
+    <a href="/app" class="cta">Start free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Your trades deserve <span>a real journal</span></h1>
+  <p>Log every trade with discipline scoring, screenshot capture, and honest reflection. See exactly where you're leaking edge — and where you're sharpest.</p>
+  <a href="/app" class="hero-cta">Start journaling free</a>
+  <div class="hero-sub">No credit card required. Works in any browser.</div>
+</section>
+
+<section class="features">
+  <div class="feat">
+    <div class="feat-icon fi-purple">&#x2713;</div>
+    <h3>Discipline scoring</h3>
+    <p>Define your trading rules. Every trade gets scored against your plan — adherence rating, rule violations, and a derived "followed plan" flag.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon fi-green">&#x2197;</div>
+    <h3>Real-time dashboard</h3>
+    <p>Win rate, P&L, profit factor, equity curve, streaks, and max drawdown — all computed live from your actual trade log.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon fi-amber">&#x270E;</div>
+    <h3>Honest reflection</h3>
+    <p>Capture your emotional state, trade intent, and post-trade reflection. The journal that helps you see patterns in yourself, not just the market.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon fi-purple">&#x1F4F7;</div>
+    <h3>Chart screenshots</h3>
+    <p>Attach your chart screenshot to every trade. Review your setups visually alongside your notes and P&L.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon fi-green">&#x2B07;</div>
+    <h3>One-click export</h3>
+    <p>Download your entire trade history as CSV. Bring it into Excel, share with a mentor, or feed it into your own analysis tools.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon fi-amber">&#x1F512;</div>
+    <h3>Your data, your account</h3>
+    <p>Private by default. Your trades are encrypted at rest and only visible to you. No social features unless you want them.</p>
+  </div>
+</section>
+
+<section class="how">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">1</span>
+      <h4>Set your rules</h4>
+      <p>Define the trading rules you want to hold yourself to. These become your pre-trade checklist.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <h4>Log every trade</h4>
+      <p>Entry, exit, thesis, emotional state, discipline score. Takes 60 seconds. Attach a screenshot.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <h4>Review & improve</h4>
+      <p>Your dashboard shows exactly where you're breaking rules, what setups work, and how your discipline correlates with P&L.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bottom-cta">
+  <h2>Ready to build real edge?</h2>
+  <p>Most traders lose because of process, not analysis. Fix the process.</p>
+  <a href="/app" class="hero-cta">Start journaling free</a>
+</section>
+
+<footer class="footer">
+  &copy; 2026 Legacy Edge. Built for traders who take their craft seriously.
+</footer>
+
+</body>
+</html>
